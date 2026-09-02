@@ -1,12 +1,4 @@
 /**
- * Script de inicialização do schema do banco de dados.
- * Cria as tabelas mínimas exigidas (usuarios, eventos, inscricoes)
- * caso ainda não existam, usando comandos DDL parametrizados de forma
- * segura (não há entrada de usuário aqui, mas a estrutura evita
- * concatenação manual de valores).
- *
- * Execução: npm run init-db
- *
  * @async
  * @returns {Promise<void>}
  */
@@ -60,10 +52,10 @@ async function inicializarBanco() {
             ) ENGINE=InnoDB;
         `);
 
-        console.log('✅ Schema do banco de dados verificado/criado com sucesso.');
+        console.log('Schema do banco de dados verificado/criado com sucesso.');
         process.exit(0);
     } catch (erro) {
-        console.error('❌ Erro ao inicializar o schema do banco de dados:', erro.message);
+        console.error('Erro ao inicializar o schema do banco de dados:', erro.message);
         process.exit(1);
     }
 }

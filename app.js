@@ -1,10 +1,3 @@
-/**
- * Configuração central da aplicação Express (Aplicação 1 - EventHub, MVC).
- * Responsável por: middlewares globais, sessão (cookie httpOnly),
- * view engine (EJS), arquivos estáticos, montagem das rotas
- * e tratamento de erros.
- */
-
 require('dotenv').config();
 const path = require('path');
 const express = require('express');
@@ -22,20 +15,20 @@ const app = express();
 
 app.use(methodOverride('_method'));
 app.use(expressLayouts);
-app.set('layout', 'layout');   // nome do arquivo de layout (sem .ejs)
+app.set('layout', 'layout');  
 
-// ===== VIEW ENGINE =====
+// VIEW ENGINE 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// ===== MIDDLEWARES DE PARSING =====
+// MIDDLEWARES DE PARSING 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// ===== ARQUIVOS ESTÁTICOS (CSS, imagens, JS do front) =====
+// ARQUIVOS ESTÁTICOS
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ===== SESSÃO COM COOKIE HTTPONLY =====
+// SESSÃO COM COOKIE HTTPONLY
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
@@ -47,16 +40,16 @@ app.use(session({
     }
 }));
 
-// ===== INJETA DADOS DO USUÁRIO NAS VIEWS =====
+// INJETA DADOS DO USUÁRIO NAS VIEWS
 app.use(injetarUsuarioNasViews);
 
-// ===== ROTAS =====
+// ROTAS
 app.get('/', (req, res) => res.redirect('/eventos'));
 app.use('/auth', authRoutes);          // <- AGORA as rotas /login, /cadastro, /logout funcionam
 app.use('/eventos', eventoRoutes);
 app.use('/inscricoes', inscricaoRoutes);
 
-// ===== 404 =====
+// 404
 app.use((req, res) => {
     res.status(404).render('erro', {
         titulo: 'Página não encontrada',
@@ -64,7 +57,7 @@ app.use((req, res) => {
     });
 });
 
-// ===== TRATAMENTO GLOBAL DE ERROS =====
+// TRATAMENTO GLOBAL DE ERROS
 app.use((erro, req, res, next) => {
     console.error('Erro não tratado:', erro.stack || erro.message);
     const mensagem = process.env.NODE_ENV === 'production'
