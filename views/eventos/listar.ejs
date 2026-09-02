@@ -1,0 +1,39 @@
+<h2>Eventos</h2>
+<hr>
+
+<% if (eventos && eventos.length > 0) { %>
+    <div class="row">
+        <% eventos.forEach(function(evento) { %>
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="/eventos/<%= evento.id %>"><%= evento.titulo %></a>
+                        </h5>
+                        <p class="card-text">
+                            <strong>Local:</strong> <%= evento.local || 'A definir' %><br>
+                            <strong>Data:</strong> 
+                            <% if (evento.data) { %>
+                                <%= new Date(evento.data).toLocaleString('pt-BR') %>
+                            <% } else { %>
+                                <span class="text-muted">Data não definida</span>
+                            <% } %><br>
+                            <strong>Organizador:</strong> <%= evento.organizador_nome %>
+                        </p>
+                        <p>
+                            <span class="badge bg-primary">
+                                <%= evento.total_inscritos || 0 %> / <%= evento.vagas || '∞' %> inscritos
+                            </span>
+                        </p>
+                        <a href="/eventos/<%= evento.id %>" class="btn btn-primary btn-sm">Ver detalhes</a>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+<% } else { %>
+    <div class="alert alert-info">
+        Nenhum evento cadastrado até o momento.
+        <a href="/eventos/novo" class="btn btn-success mt-2">Criar evento</a>
+    </div>
+<% } %>

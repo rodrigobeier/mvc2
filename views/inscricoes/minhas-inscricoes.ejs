@@ -1,0 +1,37 @@
+<h2>Minhas inscrições</h2>
+<hr>
+
+<% if (inscricoes && inscricoes.length > 0) { %>
+    <div class="row">
+        <% inscricoes.forEach(function(inscricao) { %>
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="/eventos/<%= inscricao.evento_id %>"><%= inscricao.titulo %></a>
+                        </h5>
+                        <p class="card-text">
+                            <strong>Data:</strong> <%= new Date(inscricao.data).toLocaleString('pt-BR') %><br>
+                            <strong>Local:</strong> <%= inscricao.local || 'A definir' %><br>
+                            <strong>Inscrito em:</strong> <%= new Date(inscricao.data_inscricao).toLocaleDateString('pt-BR') %>
+                        </p>
+                        <form action="/inscricoes/cancelar/<%= inscricao.id %>" method="POST" style="display:inline">
+                            <button type="submit" class="btn btn-danger btn-sm" 
+                                    onclick="return confirm('Cancelar inscrição?')">
+                                Cancelar inscrição
+                            </button>
+                        </form>
+                        <a href="/eventos/<%= inscricao.evento_id %>" class="btn btn-secondary btn-sm">Ver evento</a>
+                    </div>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+<% } else { %>
+    <div class="alert alert-info">
+        Você ainda não está inscrito em nenhum evento.
+        <a href="/eventos" class="btn btn-primary mt-2">Ver eventos disponíveis</a>
+    </div>
+<% } %>
+
+<a href="/eventos" class="btn btn-primary">Voltar para eventos</a>

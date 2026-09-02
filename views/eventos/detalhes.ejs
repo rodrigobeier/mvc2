@@ -1,0 +1,46 @@
+<div class="card">
+    <h2><%= evento.titulo %></h2>
+    <p><%= evento.descricao %></p>
+    <p><strong>Data:</strong> <%= evento.data ? new Date(evento.data).toLocaleString('pt-BR') : 'Data não definida' %></p>
+    <p><strong>Local:</strong> <%= evento.local || 'A definir' %></p>
+    <p><strong>Organizador:</strong> <%= evento.organizador_nome %></p>
+    
+    <p>
+        <span class="badge bg-primary">
+            <%= evento.total_inscritos || 0 %> / <%= evento.vagas || '∞' %> inscritos
+        </span>
+    </p>
+
+    <% if (usuario) { %>
+        <% if (tipo === 'participante') { %>
+            <% if (jaInscrito) { %>
+                <div class="alert alert-success">✅ Você já está inscrito neste evento.</div>
+            <% } else if (evento.vagas && evento.total_inscritos >= evento.vagas) { %>
+                <div class="alert alert-danger">❌ Vagas esgotadas para este evento.</div>
+            <% } else { %>
+                <form action="/inscricoes/evento/<%= evento.id %>/inscrever" method="POST">
+                    <button class="btn btn-success" type="submit">Inscrever-se</button>
+                </form>
+            <% } %>
+        <% } %>
+
+        <% if (usuarioId === evento.organizador_id) { %>
+            <div style="margin-top:1rem;">
+                <a class="btn btn-secondary" href="/eventos/<%= evento.id %>/editar">Editar</a>
+                <!-- EXCLUSÃO: usando POST com _method DELETE -->
+                <form action="/eventos/<%= evento.id %>/delete" method="POST" style="display:inline"
+                      onsubmit="return confirm('Tem certeza que deseja excluir este evento?');">
+                    <button class="btn btn-danger" type="submit">Excluir</button>
+                </form>
+            </div>
+        <% } %>
+    <% } else { %>
+        <div class="alert alert-warning">
+            <a href="/login">Faça login</a> para se inscrever.
+        </div>
+    <% } %>
+
+    <div style="margin-top:1.5rem;">
+        <a href="/eventos" class="btn btn-primary">Voltar para eventos</a>
+    </div>
+</div>

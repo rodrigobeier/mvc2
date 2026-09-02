@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventHub - Gestão de Eventos</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header>
+    <span class="marca">EventHub</span>
+    <nav>
+        <a href="/eventos">Eventos</a>
+        <% if (usuario) { %>
+            <% if (tipo === 'organizador') { %>
+                <a href="/eventos/novo">Novo evento</a>
+            <% } %>
+            <a href="/inscricoes/minhas">Minhas inscrições</a>
+            <span>Olá, <%= usuario %></span>
+            <form action="/auth/logout" method="POST">
+                <button class="btn btn-secondary" type="submit">Sair</button>
+            </form>
+        <% } else { %>
+           <a href="/auth/login">Entrar</a>
+           <a href="/auth/cadastro">Cadastrar</a>
+        <% } %>
+    </nav>
+</header>
+<main>
+    <%- body %>
+</main>
+</body>
+</html>

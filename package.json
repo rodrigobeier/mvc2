@@ -1,0 +1,28 @@
+{
+  "name": "mvc2",
+  "version": "1.0.0",
+  "description": "EventHub - Sistema de Gestao de Eventos e Inscricoes (Arquitetura MVC)",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "init-db": "node src/database.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^17.4.2",
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
+    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.19.0",
+    "method-override": "^3.0.0",
+    "mysql2": "^3.24.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
