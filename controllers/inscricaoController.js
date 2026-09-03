@@ -1,7 +1,3 @@
-/**
- * Controller responsável pela inscrição de participantes em eventos.
- */
-
 const Inscricao = require('../models/Inscricao');
 const Evento = require('../models/Evento');
 

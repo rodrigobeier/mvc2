@@ -1,8 +1,3 @@
-/**
- * Controller responsável pelo CRUD de eventos.
- * Criação/edição/exclusão são restritas ao organizador dono do evento.
- */
-
 const Evento = require('../models/Evento');
 const Inscricao = require('../models/Inscricao');
 
